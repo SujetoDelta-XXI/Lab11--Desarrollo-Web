@@ -1,5 +1,6 @@
 package demo.Contoller;
 
+import demo.Model.Laboratorio;
 import demo.Model.OrdenCompra;
 import demo.Repository.OrdenCompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,18 @@ public class OrdenCompraController {
         return repo.findAll();
     }
 
+    @GetMapping("/{id}")
+    public OrdenCompra obtenerPorId(@PathVariable Integer id) {
+        return repo.findById(id).orElse(null);
+    }
+
     @PostMapping
     public OrdenCompra guardar(@RequestBody OrdenCompra orden) {
+        // Solución: agregamos la orden al laboratorio antes de guardar
+        Laboratorio lab = orden.getLaboratorio();
+        if (lab != null && lab.getOrdenes() != null) {
+            lab.getOrdenes().add(orden);
+        }
         return repo.save(orden);
     }
 

@@ -1,6 +1,9 @@
 package demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +20,8 @@ public class Laboratorio {
     private String contacto;
 
     @OneToMany(mappedBy = "laboratorio", cascade = CascadeType.ALL)
-    private List<OrdenCompra> ordenes;
+    @JsonManagedReference
+    private List<OrdenCompra> ordenes = new ArrayList<>();
 
     // Getters y setters
 

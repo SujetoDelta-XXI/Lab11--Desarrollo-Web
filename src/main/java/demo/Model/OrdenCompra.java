@@ -1,5 +1,6 @@
 package demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class OrdenCompra {
 
     @ManyToOne
     @JoinColumn(name = "cod_lab", referencedColumnName = "cod_lab")
-    @JsonIgnore
+    @JsonBackReference
     private Laboratorio laboratorio;
 
     // Getters y setters
